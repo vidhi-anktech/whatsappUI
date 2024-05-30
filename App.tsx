@@ -1,118 +1,99 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import 'react-native-gesture-handler';
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Home from './screens/Home';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Feather from 'react-native-vector-icons/Feather';
+import ChatScreen from './screens/Chat';
+import PhoneScreen from './screens/PhoneScreen';
+import CameraScreen from './screens/CameraScreen';
+import ContactScreen from './screens/ContactScreen';
+import AccountScreen from './screens/AccountScreen';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+const App = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
+    <NavigationContainer>
+      {/* <Stack.Navigator>
+        <Stack.Screen name='ChatScreen' component={ChatScreen} />
+      </Stack.Navigator> */}
+      <Tab.Navigator initialRouteName='Home' screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: '#075e54',
+        tabBarStyle: { height: 50, padding: 8 }
+      }}>
+        <Tab.Screen
+          name="Home"
+          component={Home}
+          options={{
+            tabBarLabel: 'Chat',
+            tabBarLabelStyle: { fontSize: 12 },
+            tabBarIcon: ({ color, size }) => (
+              <Entypo name='chat' size={25} color={'#075e54'} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Phone"
+          component={PhoneScreen}
+          options={{
+            tabBarLabel: 'Calls',
+            tabBarLabelStyle: { fontSize: 12 },
+            tabBarIcon: ({ color, size }) => (
+              <Feather name='phone-call' size={25} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Camera"
+          component={CameraScreen}
+          options={{
+            tabBarLabel: 'Camera',
+            tabBarLabelStyle: { fontSize: 12 },
+            tabBarIcon: ({ color, size }) => (
+              <Feather name='camera' size={25} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Contacts"
+          component={ContactScreen}
+          options={{
+            tabBarLabel: 'Contacts',
+            tabBarLabelStyle: { fontSize: 12 },
+            tabBarIcon: ({ color, size }) => (
+              <Feather name='users' size={25} />
+            ),
+          }}
+
+        />
+        <Tab.Screen
+          name="Account"
+          component={AccountScreen}
+          options={{
+            tabBarLabel: 'Account',
+            tabBarLabelStyle: { fontSize: 12 },
+            tabBarIcon: ({ color, size }) => (
+              <Feather name='user' size={25} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  )
 }
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
+export default App
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+  tabBar: {}
+})
 
-export default App;
+function StackNavigator(arg0: { Login: { screen: any; }; Signup: { screen: any; }; }) {
+  throw new Error('Function not implemented.');
+}
